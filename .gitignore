@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build
+dist/
+dist-ssr/
+*.local
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Convex
+.convex/
+convex/_generated/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.log
