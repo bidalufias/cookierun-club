@@ -1,12 +1,59 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Home from "./components/Home";
 import ShopList from "./components/ShopList";
 import Filters from "./components/Filters";
+import Footer from "./components/Footer";
+import Privacy from "./components/Privacy";
+import Terms from "./components/Terms";
 
-type View = "home" | "directory";
+type Route = "home" | "directory" | "privacy" | "terms";
+
+function pathToRoute(pathname: string): Route {
+  const path = pathname.replace(/\/+$/, "") || "/";
+  if (path === "/directory" || path === "/shops") return "directory";
+  if (path === "/privacy") return "privacy";
+  if (path === "/terms") return "terms";
+  return "home";
+}
+
+function routeToPath(route: Route): string {
+  switch (route) {
+    case "directory":
+      return "/directory";
+    case "privacy":
+      return "/privacy";
+    case "terms":
+      return "/terms";
+    default:
+      return "/";
+  }
+}
+
+function usePath(): [Route, (route: Route) => void] {
+  const [route, setRouteState] = useState<Route>(() =>
+    pathToRoute(window.location.pathname),
+  );
+
+  useEffect(() => {
+    const onPop = () => setRouteState(pathToRoute(window.location.pathname));
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  const navigate = useCallback((next: Route) => {
+    const path = routeToPath(next);
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, "", path);
+    }
+    setRouteState(next);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  return [route, navigate];
+}
 
 export default function App() {
-  const [view, setView] = useState<View>("home");
+  const [route, navigate] = usePath();
   const [area, setArea] = useState("All");
   const [lateNightOnly, setLateNightOnly] = useState(false);
 
@@ -16,7 +63,7 @@ export default function App() {
         <button
           type="button"
           className="logo"
-          onClick={() => setView("home")}
+          onClick={() => navigate("home")}
           aria-label="Cookie Run Club home"
         >
           <span className="logo-mark" aria-hidden="true">
@@ -27,15 +74,15 @@ export default function App() {
         <nav className="nav">
           <button
             type="button"
-            className={view === "home" ? "nav-link active" : "nav-link"}
-            onClick={() => setView("home")}
+            className={route === "home" ? "nav-link active" : "nav-link"}
+            onClick={() => navigate("home")}
           >
             Home
           </button>
           <button
             type="button"
-            className={view === "directory" ? "nav-link active" : "nav-link"}
-            onClick={() => setView("directory")}
+            className={route === "directory" ? "nav-link active" : "nav-link"}
+            onClick={() => navigate("directory")}
           >
             Shops
           </button>
@@ -43,9 +90,10 @@ export default function App() {
       </header>
 
       <main className="main">
-        {view === "home" ? (
-          <Home onBrowse={() => setView("directory")} />
-        ) : (
+        {route === "home" && (
+          <Home onBrowse={() => navigate("directory")} />
+        )}
+        {route === "directory" && (
           <section className="directory">
             <div className="directory-intro">
               <h1>Cookie shops near you</h1>
@@ -63,14 +111,14 @@ export default function App() {
             <ShopList area={area} lateNightOnly={lateNightOnly} />
           </section>
         )}
+        {route === "privacy" && <Privacy />}
+        {route === "terms" && <Terms />}
       </main>
 
-      <footer className="site-footer">
-        <p>
-          Cookie Run Club · KL &amp; Klang Valley · No delivery, just
-          discovery.
-        </p>
-      </footer>
+      <Footer
+        onPrivacy={() => navigate("privacy")}
+        onTerms={() => navigate("terms")}
+      />
     </div>
   );
 }
