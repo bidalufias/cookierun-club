@@ -1,18 +1,19 @@
 :root {
-  --cream: #fbf4ea;
-  --cream-deep: #f3e6d4;
+  --white: #ffffff;
+  --off-white: #fafafa;
+  --surface: #ffffff;
   --cocoa: #4a2c1a;
   --cocoa-soft: #6b4430;
   --caramel: #c4783a;
   --caramel-deep: #a85d28;
   --chocolate: #3a1f12;
   --chip: #2b160d;
-  --paper: #fffaf3;
   --ink: #2e1c12;
   --muted: #7a5a45;
-  --line: #e8d3bc;
-  --badge: #efe0c8;
-  --shadow: 0 10px 28px rgba(58, 31, 18, 0.08);
+  --line: #e8ddd0;
+  --badge: #f3ebe3;
+  --brown-soft: #f7f2ed;
+  --shadow: 0 10px 28px rgba(58, 31, 18, 0.07);
   --radius: 18px;
   --font: "Segoe UI", system-ui, -apple-system, sans-serif;
 }
@@ -32,10 +33,7 @@ body {
 
 body {
   font-family: var(--font);
-  background:
-    radial-gradient(1200px 500px at 10% -10%, #ffe9c8 0%, transparent 55%),
-    radial-gradient(800px 400px at 100% 0%, #f3d5b0 0%, transparent 50%),
-    var(--cream);
+  background: var(--white);
   color: var(--ink);
   line-height: 1.55;
 }
@@ -65,7 +63,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(251, 244, 234, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -108,7 +106,7 @@ a {
 
 .nav-link.active {
   background: var(--chocolate);
-  color: var(--paper);
+  color: var(--white);
 }
 
 .main {
@@ -119,7 +117,7 @@ a {
 }
 
 .home .hero {
-  background: var(--paper);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 24px;
   padding: 1.5rem 1.25rem 1.7rem;
@@ -158,7 +156,7 @@ a {
   appearance: none;
   border: 0;
   background: var(--caramel);
-  color: #fff8ef;
+  color: #fff;
   font-weight: 700;
   font-size: 1rem;
   padding: 0.85rem 1.2rem;
@@ -179,7 +177,7 @@ a {
 }
 
 .story-card {
-  background: var(--paper);
+  background: var(--off-white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1rem 1.05rem;
@@ -216,7 +214,7 @@ a {
   align-items: end;
   margin-bottom: 1.15rem;
   padding: 0.9rem 1rem;
-  background: var(--paper);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
@@ -238,7 +236,7 @@ a {
 
 .filter-select {
   border: 1px solid var(--line);
-  background: var(--cream);
+  background: var(--off-white);
   color: var(--ink);
   border-radius: 12px;
   padding: 0.65rem 0.75rem;
@@ -269,7 +267,7 @@ a {
 }
 
 .shop-card {
-  background: var(--paper);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.05rem 1.1rem 1.15rem;
@@ -336,39 +334,118 @@ a {
   text-decoration: none;
   font-weight: 700;
   font-size: 0.88rem;
-  background: var(--cream-deep);
+  background: var(--brown-soft);
   color: var(--chocolate);
   padding: 0.4rem 0.7rem;
   border-radius: 999px;
+  border: 1px solid var(--line);
 }
 
 .shop-links a:hover {
-  background: #ead3b5;
+  background: var(--badge);
 }
 
 .shop-list-state {
   padding: 1.4rem 1rem;
   text-align: center;
   color: var(--muted);
-  background: var(--paper);
+  background: var(--off-white);
   border: 1px dashed var(--line);
   border-radius: var(--radius);
 }
 
 .site-footer {
-  padding: 1.2rem 1.1rem 1.6rem;
+  margin-top: auto;
+  padding: 1.6rem 1.1rem 1.8rem;
   text-align: center;
   color: var(--muted);
   font-size: 0.88rem;
+  border-top: 1px solid var(--line);
+  background: var(--off-white);
 }
 
 .site-footer p {
-  margin: 0;
+  margin: 0 0 0.45rem;
+}
+
+.site-footer .footer-tagline {
+  color: var(--cocoa-soft);
+  font-weight: 600;
+}
+
+.site-footer .footer-copy {
+  color: var(--muted);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 0.55rem;
+}
+
+.footer-links a {
+  color: var(--caramel-deep);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  text-decoration: underline;
+}
+
+.legal-page {
+  max-width: 720px;
+}
+
+.legal-page h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.75rem;
+  letter-spacing: -0.03em;
+  color: var(--chocolate);
+}
+
+.legal-meta {
+  margin: 0 0 1.4rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.legal-page h2 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.15rem;
+  color: var(--chocolate);
+}
+
+.legal-page p,
+.legal-page li {
+  color: var(--cocoa-soft);
+  font-size: 0.98rem;
+}
+
+.legal-page p {
+  margin: 0 0 0.75rem;
+}
+
+.legal-page ul {
+  margin: 0 0 0.9rem;
+  padding-left: 1.2rem;
+}
+
+.legal-page li {
+  margin-bottom: 0.35rem;
+}
+
+.legal-page a {
+  font-weight: 650;
 }
 
 @media (min-width: 720px) {
   .site-header,
-  .main {
+  .main,
+  .site-footer {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
